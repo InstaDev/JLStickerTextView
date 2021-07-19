@@ -30,7 +30,9 @@ public class JLStickerImageView: UIImageView, UIGestureRecognizerDelegate {
     }
     
     public override init(frame: CGRect) {
-        fatalError("init(frame:) has not been implemented")
+        super.init(frame: frame)
+        isUserInteractionEnabled = true
+        labels = []
     }
     
     required init?(coder: NSCoder) {
