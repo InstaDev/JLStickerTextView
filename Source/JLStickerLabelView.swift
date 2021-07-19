@@ -407,11 +407,14 @@ extension JLStickerLabelView {
         labelTextView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         labelTextView?.clipsToBounds = true
         labelTextView?.delegate = self
+        labelTextView?.font = UIFont.systemFont(ofSize: 15)
         labelTextView?.backgroundColor = UIColor.clear
         labelTextView?.tintColor = UIColor(red: 33, green: 45, blue: 59, alpha: 1)
         labelTextView?.isScrollEnabled = false
         labelTextView?.isSelectable = true
         labelTextView?.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        labelTextView?.autocorrectionType = .no
+        
     }
     
     private func setupBorder() {

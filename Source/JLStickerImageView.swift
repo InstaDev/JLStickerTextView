@@ -23,23 +23,25 @@ public class JLStickerImageView: UIImageView, UIGestureRecognizerDelegate {
     //MARK: -
     //MARK: init
     
-    init() {
+    public init() {
         super.init(frame: CGRect.zero)
         isUserInteractionEnabled = true
         labels = []
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        isUserInteractionEnabled = true
-        labels = []
+    public override init(frame: CGRect) {
+        fatalError("init(frame:) has not been implemented")
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        isUserInteractionEnabled = true
-        labels = []
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
+    //
+//    public required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        isUserInteractionEnabled = true
+//        labels = []
+//    }
     
 }
 
@@ -59,7 +61,11 @@ extension JLStickerImageView {
         labelView.setupTextLabel()
         labelView.delegate = self
         labelView.showsContentShadow = false
-        labelView.borderColor = UIColor.white
+        labelView.borderColor = UIColor.black
+        labelView.closeView?.image = UIImage(systemName: "multiply.circle")
+        labelView.closeView?.tintColor = UIColor.black
+        labelView.rotateView?.image = UIImage(systemName: "rotate.left")
+        labelView.rotateView?.tintColor = UIColor.black
 //        labelView.labelTextView?.fontName = "Roboto-Medium"
         self.addSubview(labelView)
         currentlyEditingLabel = labelView
@@ -80,7 +86,7 @@ extension JLStickerImageView {
         let labelView = JLStickerLabelView(frame: labelFrame)
         labelView.setupImageLabel()
         labelView.showsContentShadow = false
-        labelView.borderColor = UIColor.white
+        labelView.borderColor = UIColor.black
         self.addSubview(labelView)
         currentlyEditingLabel = labelView
         adjustsWidthToFillItsContens(currentlyEditingLabel)
@@ -93,7 +99,7 @@ extension JLStickerImageView {
         
         self.cleanup()
         
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, true, 0)
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0)
         
         self.layer.render(in: UIGraphicsGetCurrentContext()!)
         let img = UIGraphicsGetImageFromCurrentImageContext()
@@ -130,6 +136,12 @@ extension JLStickerImageView {
             } else {
                 label.hideEditingHandlers()
             }
+        }
+    }
+    
+    public func reset() {
+        for label in labels {
+            label.closeTap(nil)
         }
     }
 }
