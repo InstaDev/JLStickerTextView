@@ -68,7 +68,6 @@ extension JLStickerImageView {
         labelView.closeView?.tintColor = UIColor.black
         labelView.rotateView?.image = UIImage(systemName: "rotate.left")
         labelView.rotateView?.tintColor = UIColor.black
-//        labelView.labelTextView?.fontName = "Roboto-Medium"
         self.addSubview(labelView)
         currentlyEditingLabel = labelView
         adjustsWidthToFillItsContens(currentlyEditingLabel)
@@ -90,6 +89,10 @@ extension JLStickerImageView {
         labelView.showsContentShadow = false
         labelView.borderColor = UIColor.black
         self.addSubview(labelView)
+        labelView.closeView?.image = UIImage(systemName: "multiply.circle")
+        labelView.closeView?.tintColor = UIColor.black
+        labelView.rotateView?.image = UIImage(systemName: "rotate.left")
+        labelView.rotateView?.tintColor = UIColor.black
         currentlyEditingLabel = labelView
         adjustsWidthToFillItsContens(currentlyEditingLabel)
         labels.append(labelView)

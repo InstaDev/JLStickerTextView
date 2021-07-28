@@ -307,6 +307,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
         
         switch recognizer.state {
         case .began:
+            labelTextView?.resignFirstResponder()
             beginningPoint = touchLocation
             beginningCenter = self.center
             
@@ -345,6 +346,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
         
         switch recognizer.state {
         case .began:
+            labelTextView?.resignFirstResponder()
             deltaAngle = atan2(touchLocation!.y - center.y, touchLocation!.x - center.x) - CalculateFunctions.CGAffineTrasformGetAngle(self.transform)
             initialBounds = self.bounds
             initialDistance = CalculateFunctions.CGpointGetDistance(center, point2: touchLocation!)
@@ -409,11 +411,11 @@ extension JLStickerLabelView {
         labelTextView?.delegate = self
         labelTextView?.font = UIFont.systemFont(ofSize: 15)
         labelTextView?.backgroundColor = UIColor.clear
-        labelTextView?.tintColor = UIColor(red: 33, green: 45, blue: 59, alpha: 1)
+       // labelTextView?.tintColor = UIColor(red: 33, green: 45, blue: 59, alpha: 1)
         labelTextView?.isScrollEnabled = false
         labelTextView?.isSelectable = true
         labelTextView?.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0)
-        labelTextView?.autocorrectionType = .no
+        labelTextView?.autocorrectionType = .yes
         
     }
     

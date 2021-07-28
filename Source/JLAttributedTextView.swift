@@ -25,9 +25,9 @@ public class JLAttributedTextView: UITextView {
     //MARK: -
     //MARK: Font
     
-    public var fontName: String = "HelveticaNeue" {
+    public var fontName: String = ".SFCompactText-Regular" {
         didSet {
-            let font = UIFont(name: fontName, size: fontSize)
+            let font = fontName == ".SFCompactText-Regular" ? UIFont.systemFont(ofSize: fontSize) :  UIFont(name: fontName, size: fontSize)
             textAttributes[NSAttributedStringKey.font] = font
             self.attributedText = NSAttributedString(string: self.text, attributes: textAttributes)
             
@@ -37,7 +37,7 @@ public class JLAttributedTextView: UITextView {
     
     public var fontSize: CGFloat = 20 {
         didSet {
-            let font = UIFont(name: fontName, size: fontSize)
+            let font = fontName == ".SFCompactText-Regular" ? UIFont.systemFont(ofSize: fontSize) : UIFont(name: fontName, size: fontSize)
             textAttributes[NSAttributedStringKey.font] = font
             self.attributedText = NSAttributedString(string: self.text, attributes: textAttributes)
             

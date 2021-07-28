@@ -26,14 +26,14 @@ extension adjustFontSizeToFillRectProtocol {
         var stickerMinimumFontSize: CGFloat = 15.0
         var difference: CGFloat = 0.0
         
-        var tempFont = UIFont(name: labelTextView.fontName, size: labelTextView.fontSize)
+        var tempFont = UIFont(name: labelTextView.fontName, size: labelTextView.fontSize) ?? UIFont.systemFont(ofSize: labelTextView.fontSize)
         var copyTextAttributes = labelTextView.textAttributes
         copyTextAttributes[NSAttributedStringKey.font] = tempFont
         var attributedText = NSAttributedString(string: labelTextView.text, attributes: copyTextAttributes)
         
         while stickerMinimumFontSize <= stickerMaximumFontSize {
             mid = stickerMinimumFontSize + (stickerMaximumFontSize - stickerMinimumFontSize) / 2
-            tempFont = UIFont(name: labelTextView.fontName, size: CGFloat(mid))!
+            tempFont = UIFont(name: labelTextView.fontName, size: CGFloat(mid)) ?? UIFont.systemFont(ofSize: CGFloat(mid))
             copyTextAttributes[NSAttributedStringKey.font] = tempFont
             attributedText = NSAttributedString(string: labelTextView.text, attributes: copyTextAttributes)
             
