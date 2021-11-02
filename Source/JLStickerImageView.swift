@@ -221,12 +221,25 @@ extension JLStickerImageView: adjustFontSizeToFillRectProtocol {
     public var fontName: String! {
         set {
             if self.currentlyEditingLabel != nil {
-                self.currentlyEditingLabel.labelTextView?.fontName = newValue
+                self.currentlyEditingLabel.labelTextView?.font = UIFont(name: newValue, size: 20)
                 adjustsWidthToFillItsContens(currentlyEditingLabel)
             }
         }
         get {
             return self.currentlyEditingLabel.labelTextView?.fontName
+        }
+    }
+
+    public var fontSize: CGFloat! {
+        set {
+            if self.currentlyEditingLabel != nil {
+                self.currentlyEditingLabel.labelTextView?.font = UIFont(name: fontName, size: newValue)
+                adjustsWidthToFillItsContens(currentlyEditingLabel)
+            }
+        }
+        get {
+//            return self.currentlyEditingLabel.labelTextView?.fontSize
+            return 20
         }
     }
     
