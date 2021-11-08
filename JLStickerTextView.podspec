@@ -18,6 +18,8 @@ Pod::Spec.new do |s|
 
   s.source_files  = "Source"
 
+  s.resources = 'Source/*.pdf'
+
   s.requires_arc = false
 
   s.frameworks = "UIKit"
