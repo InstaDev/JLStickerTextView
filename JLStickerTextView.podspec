@@ -18,8 +18,7 @@ Pod::Spec.new do |s|
 
   s.source_files  = "Source"
 
-  s.resources = 'Source/*.pdf'
-
+  s.resources = 'Resources/*.xcassets'
   s.requires_arc = false
 
   s.frameworks = "UIKit"
