@@ -61,6 +61,8 @@ public class JLStickerLabelView: UIView {
     public var rotateView: UIImageView?
     public var closeView: UIImageView?
     public var imageView: UIImageView?
+    public var rightEllipseView: UIImageView?
+    public var leftEllipseView: UIImageView?
     
     fileprivate var isShowingEditingHandles = true
     
@@ -69,7 +71,12 @@ public class JLStickerLabelView: UIView {
             border?.strokeColor = borderColor?.cgColor
         }
     }
-    
+
+    public var borderWidth: CGFloat? {
+        didSet {
+            border?.borderWidth = borderWidth ?? 0
+        }
+    }
     
     //MARK: -
     //MARK: Set Control Buttons
@@ -94,8 +101,8 @@ public class JLStickerLabelView: UIView {
     public var showsContentShadow: Bool = false {
         didSet {
             if showsContentShadow {
-                self.layer.shadowColor = UIColor.black.cgColor
-                self.layer.shadowOffset = CGSize(width: 0, height: 5)
+                self.layer.shadowColor = UIColor.black.cgColor.copy(alpha: 0.25)
+                self.layer.shadowOffset = CGSize(width: 0, height: 1)
                 self.layer.shadowOpacity = 1.0
                 self.layer.shadowRadius = 4.0
             }else {
@@ -182,7 +189,7 @@ public class JLStickerLabelView: UIView {
     }
     
     func setupTextLabel() {
-        self.globalInset = 19
+        self.globalInset = 14
         
         self.backgroundColor = UIColor.clear
         self.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -199,7 +206,7 @@ public class JLStickerLabelView: UIView {
     }
     
     func setupImageLabel() {
-        self.globalInset = 19
+        self.globalInset = 14
         
         self.backgroundColor = UIColor.clear
         self.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -426,15 +433,14 @@ extension JLStickerLabelView {
     
     private func setupBorder() {
         border = CAShapeLayer(layer: layer)
-        border?.strokeColor = borderColor?.cgColor
+//        border?.strokeColor = borderColor?.cgColor
         border?.fillColor = nil
-        border?.lineDashPattern = [10, 2]
-        border?.lineWidth = 1
-        
+//        border?.lineDashPattern = [10, 2]
+        border?.lineWidth = 3
     }
     
     private func setupCloseAndRotateView() {
-        closeView = UIImageView(frame: CGRect(x: 0, y: 0, width: globalInset! * 2 - 6, height: globalInset! * 2 - 6))
+        closeView = UIImageView(frame: CGRect(x: 0, y: 0, width: globalInset! * 2, height: globalInset! * 2))
         closeView?.autoresizingMask = [.flexibleRightMargin, .flexibleBottomMargin]
         closeView?.contentMode = .scaleAspectFit
         closeView?.clipsToBounds = true
@@ -442,13 +448,29 @@ extension JLStickerLabelView {
         closeView?.isUserInteractionEnabled = true
         self.addSubview(closeView!)
         
-        rotateView = UIImageView(frame: CGRect(x: self.bounds.size.width - globalInset! * 2, y: self.bounds.size.height - globalInset! * 2, width: globalInset! * 2 - 6, height: globalInset! * 2 - 6))
-        rotateView?.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
+        rotateView = UIImageView(frame: CGRect(x: self.bounds.size.width - globalInset! * 2, y: 0, width: globalInset! * 2, height: globalInset! * 2))
+        rotateView?.autoresizingMask = [.flexibleLeftMargin, .flexibleBottomMargin]
         rotateView?.backgroundColor = UIColor.clear
         rotateView?.clipsToBounds = true
         rotateView?.contentMode = .scaleAspectFit
         rotateView?.isUserInteractionEnabled = true
         self.addSubview(rotateView!)
+
+        rightEllipseView = UIImageView(frame: CGRect(x: self.bounds.size.width - globalInset! * 2, y: self.bounds.size.height - globalInset! * 2, width: globalInset! * 2, height: globalInset! * 2))
+        rightEllipseView?.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
+        rightEllipseView?.backgroundColor = UIColor.clear
+        rightEllipseView?.clipsToBounds = true
+        rightEllipseView?.contentMode = .scaleAspectFit
+        rightEllipseView?.isUserInteractionEnabled = false
+        self.addSubview(rightEllipseView!)
+
+        leftEllipseView = UIImageView(frame: CGRect(x: 0, y: self.bounds.size.height - globalInset! * 2, width: globalInset! * 2, height: globalInset! * 2))
+        leftEllipseView?.autoresizingMask = [.flexibleRightMargin, .flexibleTopMargin]
+        leftEllipseView?.backgroundColor = UIColor.clear
+        leftEllipseView?.clipsToBounds = true
+        leftEllipseView?.contentMode = .scaleAspectFit
+        leftEllipseView?.isUserInteractionEnabled = false
+        self.addSubview(leftEllipseView!)
     }
     
     private func setupImageView() {
@@ -472,6 +494,8 @@ extension JLStickerLabelView {
             let t = CGAffineTransform(scaleX: scale.width, y: scale.height)
             self.closeView?.transform = t.inverted()
             self.rotateView?.transform = t.inverted()
+            self.rightEllipseView?.transform = t.inverted()
+            self.leftEllipseView?.transform = t.inverted()
             
             if (isShowingEditingHandles) {
                 if let border: CALayer = border {
@@ -494,6 +518,12 @@ extension JLStickerLabelView {
         }
         if enableRotate {
             rotateView?.isHidden = true
+        }
+        if enableClose {
+            leftEllipseView?.isHidden = true
+        }
+        if enableRotate {
+            rightEllipseView?.isHidden = true
         }
         
         labelTextView?.resignFirstResponder()
@@ -520,6 +550,14 @@ extension JLStickerLabelView {
         
         if enableRotate {
             rotateView?.isHidden = false
+        }
+
+        if enableClose {
+            leftEllipseView?.isHidden = false
+        }
+
+        if enableRotate {
+            rightEllipseView?.isHidden = false
         }
         
         self.refresh()

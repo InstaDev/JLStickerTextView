@@ -62,11 +62,13 @@ extension JLStickerImageView {
         let labelView = JLStickerLabelView(frame: labelFrame)
         labelView.setupTextLabel()
         labelView.delegate = self
-        labelView.showsContentShadow = false
-        labelView.borderColor = UIColor.black
-        labelView.closeView?.image = UIImage(systemName: "multiply.circle")
+        labelView.showsContentShadow = true
+        labelView.borderColor = UIColor.white
+        labelView.closeView?.image  = JLStickerTextViewAssets.bundledImage(named: "close_button_icon")
         labelView.closeView?.tintColor = UIColor.black
-        labelView.rotateView?.image = UIImage(systemName: "rotate.left")
+        labelView.rotateView?.image  = JLStickerTextViewAssets.bundledImage(named: "rotate_button_icon")
+        labelView.rightEllipseView?.image = JLStickerTextViewAssets.bundledImage(named: "ellipse_icon")
+        labelView.leftEllipseView?.image = JLStickerTextViewAssets.bundledImage(named: "ellipse_icon")
         labelView.rotateView?.tintColor = UIColor.black
         self.addSubview(labelView)
         currentlyEditingLabel = labelView
@@ -86,13 +88,15 @@ extension JLStickerImageView {
                                 width: 60, height: 50)
         let labelView = JLStickerLabelView(frame: labelFrame)
         labelView.setupImageLabel()
-        labelView.showsContentShadow = false
-        labelView.borderColor = UIColor.black
+        labelView.showsContentShadow = true
+        labelView.borderColor = UIColor.white
         self.addSubview(labelView)
-        labelView.closeView?.image = UIImage(systemName: "multiply.circle")
+        labelView.closeView?.image = JLStickerTextViewAssets.bundledImage(named: "close_button_icon")
         labelView.closeView?.tintColor = UIColor.black
-        labelView.rotateView?.image = UIImage(systemName: "rotate.left")
+        labelView.rotateView?.image  = JLStickerTextViewAssets.bundledImage(named: "rotate_button_icon")
         labelView.rotateView?.tintColor = UIColor.black
+        labelView.rightEllipseView?.image = JLStickerTextViewAssets.bundledImage(named: "ellipse_icon")
+        labelView.leftEllipseView?.image = JLStickerTextViewAssets.bundledImage(named: "ellipse_icon")
         currentlyEditingLabel = labelView
         adjustsWidthToFillItsContens(currentlyEditingLabel)
         labels.append(labelView)
