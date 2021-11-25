@@ -525,7 +525,8 @@ extension JLStickerLabelView {
         if enableRotate {
             rightEllipseView?.isHidden = true
         }
-        
+
+        labelTextView?.layer.borderColor = UIColor.clear.cgColor
         labelTextView?.resignFirstResponder()
         
         self.refresh()
@@ -559,7 +560,8 @@ extension JLStickerLabelView {
         if enableRotate {
             rightEllipseView?.isHidden = false
         }
-        
+
+        labelTextView?.layer.borderColor = UIColor.white.cgColor
         self.refresh()
         
         if let delegate: JLStickerLabelViewDelegate = delegate {
