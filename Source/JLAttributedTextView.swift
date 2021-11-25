@@ -40,7 +40,6 @@ public class JLAttributedTextView: UITextView {
             let font = fontName == ".SFCompactText-Regular" ? UIFont.systemFont(ofSize: fontSize) : UIFont(name: fontName, size: fontSize)
             textAttributes[NSAttributedStringKey.font] = font
             self.attributedText = NSAttributedString(string: self.text, attributes: textAttributes)
-            
             self.font = font
         }
     }

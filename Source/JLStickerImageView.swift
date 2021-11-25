@@ -57,8 +57,8 @@ extension JLStickerImageView {
         }
         
         let labelFrame = CGRect(x: self.bounds.midX - CGFloat(arc4random()).truncatingRemainder(dividingBy: 20),
-                                    y: self.bounds.midY - CGFloat(arc4random()).truncatingRemainder(dividingBy: 20),
-                                    width: 60, height: 50)
+                                y: self.bounds.maxY/5.5,
+                                width: 60, height: 50)
         let labelView = JLStickerLabelView(frame: labelFrame)
         labelView.setupTextLabel()
         labelView.delegate = self
@@ -238,12 +238,16 @@ extension JLStickerImageView: adjustFontSizeToFillRectProtocol {
         set {
             if self.currentlyEditingLabel != nil {
                 self.currentlyEditingLabel.labelTextView?.font = UIFont(name: fontName, size: newValue)
+                self.currentlyEditingLabel.labelTextView?.fontSize = newValue
                 adjustsWidthToFillItsContens(currentlyEditingLabel)
             }
         }
         get {
-//            return self.currentlyEditingLabel.labelTextView?.fontSize
-            return 20
+            if self.currentlyEditingLabel == nil {
+                return 20
+            } else {
+                return self.currentlyEditingLabel.labelTextView?.fontSize
+            }
         }
     }
     
