@@ -159,10 +159,7 @@ extension JLStickerImageView {
 //MARK: Gesture
 extension JLStickerImageView {
     @objc func tapOutside() {
-        if let _: JLStickerLabelView = currentlyEditingLabel {
-            currentlyEditingLabel.hideEditingHandlers()
-        }
-        
+        labels.forEach{ $0.hideEditingHandlers() }
     }
 }
 
@@ -226,6 +223,7 @@ extension JLStickerImageView: adjustFontSizeToFillRectProtocol {
         set {
             if self.currentlyEditingLabel != nil {
                 self.currentlyEditingLabel.labelTextView?.font = UIFont(name: newValue, size: 20)
+                self.currentlyEditingLabel.labelTextView?.fontName = newValue
                 adjustsWidthToFillItsContens(currentlyEditingLabel)
             }
         }
