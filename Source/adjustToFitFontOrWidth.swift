@@ -41,7 +41,7 @@ extension adjustFontSizeToFillRectProtocol {
             
             if (mid == stickerMinimumFontSize || mid == stickerMaximumFontSize) {
                 if (difference < 0) {
-                    labelTextView.fontSize = mid - 1
+                    labelTextView.fontSize = mid - 0.1
                     return
                 }
                 
@@ -50,9 +50,9 @@ extension adjustFontSizeToFillRectProtocol {
             }
             
             if (difference < 0) {
-                stickerMaximumFontSize = mid - 1
+                stickerMaximumFontSize = mid - 0.1
             }else if (difference > 0) {
-                stickerMinimumFontSize = mid + 1
+                stickerMinimumFontSize = mid + 0.1
             }else {
                 labelTextView.fontSize = mid
                 return

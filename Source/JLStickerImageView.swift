@@ -10,7 +10,7 @@ import UIKit
 
 public class JLStickerImageView: UIImageView, UIGestureRecognizerDelegate {
     public var currentlyEditingLabel: JLStickerLabelView!
-    fileprivate var labels: [JLStickerLabelView]!
+    public var labels: [JLStickerLabelView]!
     private var renderedView: UIView!
     
     fileprivate lazy var tapOutsideGestureRecognizer: UITapGestureRecognizer! = {
@@ -75,7 +75,7 @@ extension JLStickerImageView {
         adjustsWidthToFillItsContens(currentlyEditingLabel)
         labels.append(labelView)
         
-        self.addGestureRecognizer(tapOutsideGestureRecognizer)
+     //   self.addGestureRecognizer(tapOutsideGestureRecognizer)
     }
     
     public func addImage() {
@@ -88,6 +88,7 @@ extension JLStickerImageView {
                                 width: 60, height: 50)
         let labelView = JLStickerLabelView(frame: labelFrame)
         labelView.setupImageLabel()
+        labelView.delegate = self
         labelView.showsContentShadow = true
         labelView.borderColor = UIColor.white
         self.addSubview(labelView)
@@ -168,7 +169,7 @@ extension JLStickerImageView {
 extension JLStickerImageView: JLStickerLabelViewDelegate {
     public func labelViewDidBeginEditing(_ label: JLStickerLabelView) {
         //labels.removeObject(label)
-        
+
     }
     
     public func labelViewDidClose(_ label: JLStickerLabelView) {
@@ -204,6 +205,7 @@ extension JLStickerImageView: JLStickerLabelViewDelegate {
             labelItem.hideEditingHandlers()
         }
         label.showEditingHandles()
+        bringSubview(toFront: label)
     }
     
 }

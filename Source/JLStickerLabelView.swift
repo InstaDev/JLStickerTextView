@@ -35,13 +35,25 @@ public class JLStickerLabelView: UIView {
         panRecognizer.delegate = self
         return panRecognizer
     }()
+
+    fileprivate lazy var panRotateGesture2: UIPanGestureRecognizer! = {
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(JLStickerLabelView.rotateViewPanGesture(_:)))
+        panRecognizer.delegate = self
+        return panRecognizer
+    }()
+
+    fileprivate lazy var panRotateGesture3: UIPanGestureRecognizer! = {
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(JLStickerLabelView.rotateViewPanGesture(_:)))
+        panRecognizer.delegate = self
+        return panRecognizer
+    }()
     
     //MARK: -
     //MARK: properties
     
     fileprivate var lastTouchedView: JLStickerLabelView?
     
-    var delegate: JLStickerLabelViewDelegate?
+    public var delegate: JLStickerLabelViewDelegate?
     
     fileprivate var globalInset: CGFloat?
     
@@ -63,6 +75,7 @@ public class JLStickerLabelView: UIView {
     public var imageView: UIImageView?
     public var rightEllipseView: UIImageView?
     public var leftEllipseView: UIImageView?
+    public var appliedRotation     = CGFloat(0.0)
     
     fileprivate var isShowingEditingHandles = true
     
@@ -166,6 +179,14 @@ public class JLStickerLabelView: UIView {
             border?.frame = imageView!.bounds
         }
     }
+
+
+    public func rearrangeControls() {
+        closeView?.frame = CGRect(x: 0, y: 0, width: globalInset! * 2, height: globalInset! * 2)
+        rotateView?.frame = CGRect(x: self.bounds.size.width - globalInset! * 2, y: 0, width: globalInset! * 2, height: globalInset! * 2)
+        rightEllipseView?.frame = CGRect(x: self.bounds.size.width - globalInset! * 2, y: self.bounds.size.height - globalInset! * 2, width: globalInset! * 2, height: globalInset! * 2)
+        leftEllipseView?.frame = CGRect(x: 0, y: self.bounds.size.height - globalInset! * 2, width: globalInset! * 2, height: globalInset! * 2)
+    }
     
     private func setup() {
 
@@ -177,7 +198,9 @@ public class JLStickerLabelView: UIView {
         
         self.closeView!.addGestureRecognizer(closeTap)
         self.rotateView!.addGestureRecognizer(panRotateGesture)
-        
+        self.rightEllipseView!.addGestureRecognizer(panRotateGesture2)
+        self.leftEllipseView!.addGestureRecognizer(panRotateGesture3)
+
         self.enableMoveRestriction = true
         self.enableClose = true
         self.enableRotate = true
@@ -369,6 +392,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
             
             let angleDiff = deltaAngle! - ang
             self.transform = CGAffineTransform(rotationAngle: -angleDiff)
+            self.appliedRotation = -angleDiff
             self.layoutIfNeeded()
             
             //Finding scale between current touchPoint and previous touchPoint
@@ -461,7 +485,7 @@ extension JLStickerLabelView {
         rightEllipseView?.backgroundColor = UIColor.clear
         rightEllipseView?.clipsToBounds = true
         rightEllipseView?.contentMode = .scaleAspectFit
-        rightEllipseView?.isUserInteractionEnabled = false
+        rightEllipseView?.isUserInteractionEnabled = true
         self.addSubview(rightEllipseView!)
 
         leftEllipseView = UIImageView(frame: CGRect(x: 0, y: self.bounds.size.height - globalInset! * 2, width: globalInset! * 2, height: globalInset! * 2))
@@ -469,7 +493,7 @@ extension JLStickerLabelView {
         leftEllipseView?.backgroundColor = UIColor.clear
         leftEllipseView?.clipsToBounds = true
         leftEllipseView?.contentMode = .scaleAspectFit
-        leftEllipseView?.isUserInteractionEnabled = false
+        leftEllipseView?.isUserInteractionEnabled = true
         self.addSubview(leftEllipseView!)
     }
     
