@@ -139,7 +139,7 @@ extension JLStickerImageView {
     
     // MARK: -
     
-    func cleanup() {
+    public func cleanup() {
         for label in labels {
             if let isEmpty = label.labelTextView?.text.isEmpty, isEmpty {
                 label.closeTap(nil)
