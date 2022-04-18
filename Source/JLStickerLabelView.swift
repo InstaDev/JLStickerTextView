@@ -282,9 +282,11 @@ extension JLStickerLabelView: UITextViewDelegate {
     
     public func textViewDidChange(_ textView: UITextView) {
         if textView.text != "" {
-            if labelTextView != nil {
+            if let labelTextView = labelTextView {
                 adjustsWidthToFillItsContens(self)
-                 labelTextView!.attributedText = NSAttributedString(string: labelTextView!.text, attributes: labelTextView!.textAttributes)
+                let selectedRange = labelTextView.selectedRange
+                labelTextView.attributedText = NSAttributedString(string: labelTextView.text, attributes: labelTextView.textAttributes)
+                labelTextView.selectedRange = selectedRange
             }
 
             
