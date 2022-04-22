@@ -70,7 +70,7 @@ extension adjustFontSizeToFillRectProtocol {
         
         let attributedText = labelTextView.attributedText
         
-        let recSize = attributedText?.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+        let recSize = attributedText?.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin , .usesFontLeading], context: nil)
         
         let w1 = (ceilf(Float((recSize?.size.width)!)) + 24 < 50) ? 50 : CGFloat(ceilf(Float((recSize?.size.width)!)) + 24)
         let h1 = (ceilf(Float((recSize?.size.height)!)) + 24 < 50) ? 50 : CGFloat(ceilf(Float((recSize?.size.height)!)) + 24)
